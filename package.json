@@ -1,0 +1,26 @@
+{
+  "name": "js-algorithm",
+  "version": "1.0.0",
+  "description": "js algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -r esm test/*.test.js"
+  },
+  "keywords": [
+    "algorithm",
+    "js",
+    "javascript"
+  ],
+  "author": "wangyu",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "esm": "^3.2.25",
+    "mocha": "^8.2.1"
+  }
+}
