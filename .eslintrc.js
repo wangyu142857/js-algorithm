@@ -5,6 +5,10 @@ module.exports = {
   extends: [
     'standard'
   ],
+  plugins: [
+    'html',
+    'import'
+  ],
   parserOptions: {
     ecmaVersion: 12,
     sourceType: 'module'
