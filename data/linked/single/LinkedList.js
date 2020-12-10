@@ -11,23 +11,22 @@ class LinkedList {
 
     if (!this.head) {
       this.head = newNode;
-      return this;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = newNode;
     }
-    let current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    current.next = newNode;
 
     this.length++;
-
     return this;
   }
 
   // 插入节点
   insert(position, element) {
     if (position < 0 || position > this.length) {
-      console.error('position 超出边界');
+      console.error('insert position 超出边界');
       return this;
     }
     const newNode = new LinkedListNode(element);
@@ -35,17 +34,17 @@ class LinkedList {
     if (position === 0) {
       newNode.next = this.head;
       this.head = newNode;
-      return this;
+    } else {
+      let idx = 0;
+      let prev;
+      let current = this.head;
+      while (idx++ < position) { // 移动指针到 position
+        prev = current;
+        current = current.next;
+      }
+      newNode.next = current;
+      prev.next = newNode;
     }
-    let idx = 0;
-    let prev;
-    let current = this.head;
-    while (idx++ < position) { // 移动指针到 position
-      prev = current;
-      current = current.next;
-    }
-    newNode.next = current;
-    prev.next = newNode;
 
     this.length++;
     return this;
@@ -53,8 +52,8 @@ class LinkedList {
 
   // 删除指定位置的节点
   removeAt(position) {
-    if (position < 0 || position > this.length) {
-      console.error('position 超出边界');
+    if (position < 0 || position >= this.length) {
+      console.error('removeAt position 超出边界');
       return this;
     }
 
@@ -90,6 +89,7 @@ class LinkedList {
       idx++;
     }
     if (idx >= this.length) { // 没找到该元素
+      console.error('未找到该元素');
       prev.next = null;
       return this;
     }

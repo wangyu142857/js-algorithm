@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>单链表</title>
+</head>
+
+<body>
+  <script type="module">
+    import LinkedList from './LinkedList.js';
+    const linked = new LinkedList();
+
+    const randomNum = () => {
+      return Math.round(Math.random() * 100);
+    };
+    console.log(linked);
+    linked.append(randomNum());
+    linked.append(randomNum());
+    linked.append(randomNum());
+    linked.append(randomNum());
+    linked.append(randomNum());
+    console.log(linked.toArray());
+
+    linked.insert(1, 2);
+    console.log(linked.toArray());
+    linked.removeAt(5);
+    console.log(linked.toArray());
+
+    linked.remove(2);
+    console.log(linked.toArray());
+
+    console.log(linked.indexOf(2));
+    console.log(linked.isEmpty());
+    console.log(linked.size());
+    console.log(linked.getHead());
+    console.log(linked.toString());
+    console.log(linked.toArray());
+  </script>
+</body>
+
+</html>
