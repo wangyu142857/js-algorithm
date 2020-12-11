@@ -1,8 +1,9 @@
-// 单链表
+// 循环链表
 import LinkedListNode from './LinkedListNode.js';
 class LinkedList {
   constructor() {
-    this.head = null;
+    this.head = null; // 头节点
+    this.tail = null; // 尾节点
     this.length = 0;
   }
 
@@ -11,13 +12,15 @@ class LinkedList {
     const newNode = new LinkedListNode(element);
 
     if (!this.head) {
-      this.head = newNode;
+      this.head = this.tail = newNode;
+      this.head.next = this.head; // 循环链表只有一个节点时，next指向自己
     } else {
       let current = this.head;
-      while (current.next) {
+      while (current.next !== this.head) { // 尾节点指向头节点节点
         current = current.next;
       }
-      current.next = newNode;
+      newNode.next = this.head;
+      current.next = this.tail = newNode;
     }
 
     this.length++;
@@ -32,19 +35,28 @@ class LinkedList {
     }
     const newNode = new LinkedListNode(element);
 
+    let current = this.head;
     if (position === 0) {
+      // while (current.next !== this.head) { // 移动指针到 position
+      //   current = current.next;
+      // }
+      // current.next = newNode; // 尾节点指向head
       newNode.next = this.head;
       this.head = newNode;
+      this.tail.next = newNode;
     } else {
       let idx = 0;
       let prev;
-      let current = this.head;
       while (idx++ < position) { // 移动指针到 position
         prev = current;
         current = current.next;
       }
       newNode.next = current;
       prev.next = newNode;
+
+      if (position === this.length) {
+        this.tail = newNode;
+      }
     }
 
     this.length++;
@@ -60,6 +72,7 @@ class LinkedList {
 
     if (position === 0) {
       this.head = this.head.next;
+      this.tail.next = this.head;
     } else {
       let idx = 0;
       let prev;
@@ -69,6 +82,9 @@ class LinkedList {
         current = current.next;
       }
       prev.next = current.next;
+      if (position === this.length) {
+        this.tail = prev;
+      }
     }
     this.length--;
     return this;
@@ -78,6 +94,7 @@ class LinkedList {
   remove(element) {
     if (this.head.value === element) {
       this.head = this.head.next;
+      this.tail.next = this.head;
       this.length--;
       return this;
     }
@@ -91,10 +108,12 @@ class LinkedList {
     }
     if (idx >= this.length) { // 没找到该元素
       console.error('未找到该元素');
-      prev.next = null;
       return this;
     }
     prev.next = current.next;
+    if (idx === this.length - 1) { // 尾节点
+      this.tail = prev;
+    }
     this.length--;
     return this;
   }
@@ -138,7 +157,12 @@ class LinkedList {
   toArray() {
     const arr = [];
     let current = this.head;
-    while (current) {
+    if (!current) { // 空链表
+      return [];
+    }
+    arr.push(current.value);
+    current = current.next;
+    while (current !== this.head) {
       arr.push(current.value);
       current = current.next;
     }
